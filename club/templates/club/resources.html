@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Resource</h2>
+<h2>Resources</h2>
 <ul>
     {% for m in resource_list %}
-        <li>{{ m.resourcename }}</li>
+        <li><a href="{% url 'detail' id=m.resource.id %}">{{ m.resourcename }}</a></li>
     {% endfor %}
 </ul>
 
