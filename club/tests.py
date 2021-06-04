@@ -2,6 +2,9 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from .models import Meeting, MeetingMinutes, Resource, Event
 import datetime
+from .forms import MeetingForm
+from .forms import ResourceForm
+
 # Create your tests here.
 class MeetingTest(TestCase):
     def setUp(self):
@@ -25,4 +28,29 @@ class ResourceTest(TestCase):
     def test_tablename(self):
         self.assertEqual(str(Resource._meta.db_table), 'resource')
 
-    
+class newMeetingForm(TestCase):
+    #valid form data
+    def test_meetingForm(self):
+        data={
+            'meetingtitle': 'Another Python Meeting',
+             'meetingdate': '2021-07-01',
+             'meetingtime': '10:30 PM',
+             'location': 'Virtual (Zoom)',
+             'agenda': 'Follow up',
+        }
+        form=MeetingForm (data)
+        self.assertTrue(form.is_valid)
+
+class newResourceForm(TestCase):
+    #valid form data
+    def test_ResourceForm(self):
+        data={
+            'resourcename': 'Udemy',
+             'resourcetype': 'Online course',
+             'url': 'https://www.udemy.com/topic/python/',
+             'dateentered': '2021-06-03',
+             'userid': 'intisar',
+             'description': 'An online course provider with a specialty for programming',
+        }
+        form=ResourceForm (data)
+        self.assertTrue(form.is_valid)

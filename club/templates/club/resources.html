@@ -3,7 +3,7 @@
 <h2>Resources</h2>
 <ul>
     {% for m in resource_list %}
-        <li><a href="{% url 'detail' id=m.resource.id %}">{{ m.resourcename }}</a></li>
+        <li>{{ m.resourcename }}</a></li>
     {% endfor %}
 </ul>
 
