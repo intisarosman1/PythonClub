@@ -4,6 +4,7 @@ from .models import Meeting, MeetingMinutes, Resource, Event
 import datetime
 from .forms import MeetingForm
 from .forms import ResourceForm
+from django.urls import reverse_lazy, reverse
 
 # Create your tests here.
 class MeetingTest(TestCase):
@@ -54,3 +55,13 @@ class newResourceForm(TestCase):
         }
         form=ResourceForm (data)
         self.assertTrue(form.is_valid)
+
+class New_Resource_Authentication_Test(TestCase):
+    def setUp(self):
+        self.test_user=User.objects.create_user(username='testuser1', password='P@$$w0rd1')
+        self.type=Resource.objects.create(resourcename='Codeacademy')
+        self.resource=Resource.objects.create(resourcename='Codeacademy', resourcetype='Educational Platform', url='https://www.codeacademy.com/catalog/language/python', dateentered=('2021-05-14'), userid=self.test_user, description='An educational platform with free coding classes')
+
+    def test_redirect_if_not_logged_in(self):
+        response=self.client.get(reverse('newresource'))
+        self.assertRedirects(response, '/accounts/login/?next=/club/newresource/')
